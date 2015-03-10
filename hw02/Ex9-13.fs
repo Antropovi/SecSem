@@ -5,30 +5,34 @@
 // Реальное время выполнения 2.5 часа.
 
 
-let rec fold f value list =
-    match list with
-    | []        -> value
-    | x :: list -> fold f (f value x) list
 
+
+let reverseList list = List.fold (fun x y -> y :: x) [] list
+
+let filterList list f = List.foldBack  (fun x y-> if f x  then  x :: y else y) list []
+
+let mapList list f = List.foldBack (fun x y ->  f x ::y) list []
+
+let Horner list x = List.fold (fun an1 an2 -> an1*x+an2) 0 list
 
 
 [<EntryPoint>]
 let main argv = 
     let temp = List.iter //val temp : (('a -> unit) -> 'a list -> unit)
-
+    printf "List.iter //val temp : (('a -> unit) -> 'a list -> unit)"
     let list = [1; 2; 3; 4; 5; 0] //Произвольный список
-    printfn "%A" list
+    printf "\n \nПример списка: "; printfn "%A" list
 
-    let reverseList = fold (fun x y -> y :: x) [] list //Переворот произвольного списка
-    printfn "%A" reverseList
+    printf "Перевернутый список: "; printfn "%A" (reverseList list) 
 
-    let filterList = List.fold ( fun x y -> if (y > 3) then  y :: x else x) [] list // Фильтр по условию 
-    printfn "%A" filterList                                                         // в данном случае выбрал элементы >3
+    printf "Только элементы больше 3: "; printfn "%A" (filterList list (fun x -> x>3))
 
-    let mapList = fold (fun x y -> y+5 :: x) [] (fold (fun x y -> y :: x) [] list) // Применение ф-ии ко всем эл-ам списка
-    printfn "%A" mapList                                                           // Тут прибавил ко всем 5
+    printf "Добавим к каждому элементу 5: "; printfn "%A" (mapList list (fun x-> 5+x))    
 
-    let x = 5
-    let Horner list = List.fold (fun an1 an2 -> an1*x + an2) 0 list // Подсчет значения многочлена в определенной точке
-    printfn "%d" (Horner list)                                      // Точка = 5. Коэфициенты все тот же список.
+    let x = 2
+    printfn "Примение метод Горнера к многочлену с коэф. %A в точке %i " list x ; 
+    printfn "Ответ: %d" (Horner list 2)          
+
+
+
     0 

@@ -4,22 +4,23 @@
 // Ожидаемое время выполнения 2 часа.
 // Реальное время выполнения 2.5 часа.
 
-type tree<'A> = Nil | Node of tree<'A> * 'A * tree<'A> // Задание полиморфного дерева
 
-let rec poliMap f tree =      // Применение какой либо финкции к дереву
+type Tree<'A> = Nil | Node of Tree<'A> * 'A * Tree<'A> // Задание полиморфного дерева
+
+let rec Map f tree =      // Применение какой либо финкции к дереву
   match tree with
   | Nil -> Nil
-  | Node (l, c, r) -> Node (poliMap f l, f c , poliMap f r)
+  | Node (l, c, r) -> Node (Map f l, f c , Map f r)
 
-let rec poliFold f a tree =  // Свертка дерева 
+let rec Fold f a tree =  // Свертка дерева 
   match tree with
   | Nil   -> a
   | Node (l, c, r) -> 
       let c = f a c 
-      poliFold f (poliFold f c l) r 
+      Fold f (Fold f c l) r 
 
 
-let sumTree tree = poliFold (+) 0 tree // Ф-ия суммы значений дерева 
+let sumTree tree = Fold (+) 0 tree // Ф-ия суммы значений дерева 
                                        // Будет работать если элементы дерева можно сладывать
 
 
@@ -28,9 +29,9 @@ let minOpt a b =  // ф-ия сравнения 2ух Optiona чисел
   | None      -> Some(b)
   | Some(a)   -> Some(min a b)
     
-let findMin tree = poliFold minOpt None tree // Поиск наименьшего значения в дереве
+let findMin tree = Fold minOpt None tree // Поиск наименьшего значения в дереве
 
-let rec insert tree value = // Реализация вставки(брал из предыдущего задания. 
+let rec insert tree value = // Реализация вставки
   match tree with           // Будет необходима для копирования 
   | Nil -> Node (Nil, value, Nil)
   | Node (l, c, r) -> 
@@ -38,14 +39,46 @@ let rec insert tree value = // Реализация вставки(брал из
       elif c > value then Node (insert l value, c, r) 
         else Node (l, c, insert r value)
 
-let copeTree tree = poliFold insert Nil tree // Копирование дерева 
+let copyTree tree = Fold insert Nil tree // Копирование дерева 
+
+let rec printСLR l =
+  match l with
+  | Nil -> printf ""
+  | Node (l, c, r) -> printf "%A " c; printСLR l; printСLR r
+
+let rec printLRC l =
+  match l with
+  | Nil -> printf ""
+  | Node (l, c, r) -> printLRC l; printLRC r; printf "%A " c
+
+let rec printLCR l =
+  match l with
+  | Nil -> printf ""
+  | Node (l, c, r) -> printLCR l; printf "%A " c; printLCR r
+
 
 [<EntryPoint>]
 let main argv = 
     let test = (Node (Node (Nil, 3, Node (Nil, 5, Nil)), 8, Node (Node (Nil, 9, Nil), 10, Node (Nil, 12, Nil)))) //Универсальный тест
-    printfn "%A" test
+    printf "Tree example: "; printf "%A" test
+    printf "\nCLR : "; printСLR test
+    printf "\nLRC : "; printLRC test
+    printf "\nLCR : "; printLCR test
+
+    printf "\n \nСумма значений излов дерева: ";  
     printfn "%A" (sumTree test) // Пример поиска суммы всех значений узлов
-    printfn "%A" (poliMap (fun x  -> x+1) test) // Пример инкремента для каждого узла
-    printfn "%A" (findMin test) // Пример поиска минимального элемента
-    printfn "%A" (copeTree test) // Пример полной копия дерева
+
+    printf "\nМинимльное значение дерева: "
+    printf "%A" (findMin test) // Пример поиска минимального элемента
+        
+    printf "\n \nПример использования map добавляя к каждому узлу 3: "; 
+    printf "\nCLR : "; printСLR (Map (fun x  -> x+3) test) 
+    printf "\nLRC : "; printLRC (Map (fun x  -> x+3) test) 
+    printf "\nLCR : "; printLCR (Map (fun x  -> x+3) test) 
+    
+    printf "\n \nСкопированное дерево:"
+    let copiedtree = copyTree test
+    printf "\nCLR : "; printСLR copiedtree
+    printf "\nLRC : "; printLRC copiedtree
+    printf "\nLCR : "; printLCR copiedtree
     0 
