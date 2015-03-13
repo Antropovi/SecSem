@@ -24,7 +24,7 @@ let sumTree tree = Fold (+) 0 tree // Ф-ия суммы значений дер
                                        // Будет работать если элементы дерева можно сладывать
 
 
-let minOpt a b =  // ф-ия сравнения 2ух Optiona чисел
+let minOpt a b =  // ф-ия сравнения 2ух чисел
   match a with
   | None      -> Some(b)
   | Some(a)   -> Some(min a b)
