@@ -95,7 +95,7 @@ type ILabelGraph<'A, 'B> =
 //       ↓      
 //      (e)  
 
-(*
+
 
 let example = [|"a"; "b"; "c"; "d"; "e";|]
 let mutable testMatrix = Array2D.zeroCreate<bool> 5 5
@@ -148,7 +148,7 @@ let ``Test 02-MatrixGraph: nodes, which have access to`` elem =
 let ``Test 02-ListGraph: nodes, which have access to`` elem =
     let list = new ListGraph<string> (example, testList)
     listToString(passableFrom list elem)
-    *)
+    
 
 
 
