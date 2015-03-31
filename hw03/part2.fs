@@ -220,7 +220,7 @@ let ``Test 08 - ADTList: Append 2 lists`` () =
   Assert.AreEqual("[a; b; c; d; e; x; y; z; 1; 2; 3; ]", list.ToString())
 
 
-//Проверка реализации списка абстрактного типа данных
+//Проверка реализации списка через массивы
 
 let array = new ArrayList<string> ([||])  :> IList<string>
 
