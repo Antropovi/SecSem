@@ -1,5 +1,6 @@
 ﻿// Антропов Игорь 04.04.2015
 // Задания 35 и 36
+// Время выполнения заданий 35-38 10 часов
 open NUnit.Framework
 open System.IO
 open System
