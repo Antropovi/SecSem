@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gui", "src\gui\gui.csproj", "{88F6C10B-1A6F-4469-819D-6F32EFB2EB85}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "app", "src\app\app.fsproj", "{F19D20D0-F99E-462B-A548-184FE41271F0}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "test", "src\test\test.fsproj", "{EB0A138A-9EFA-4C3D-BD41-27109A802435}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{88F6C10B-1A6F-4469-819D-6F32EFB2EB85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88F6C10B-1A6F-4469-819D-6F32EFB2EB85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88F6C10B-1A6F-4469-819D-6F32EFB2EB85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88F6C10B-1A6F-4469-819D-6F32EFB2EB85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F19D20D0-F99E-462B-A548-184FE41271F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F19D20D0-F99E-462B-A548-184FE41271F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F19D20D0-F99E-462B-A548-184FE41271F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F19D20D0-F99E-462B-A548-184FE41271F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB0A138A-9EFA-4C3D-BD41-27109A802435}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB0A138A-9EFA-4C3D-BD41-27109A802435}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB0A138A-9EFA-4C3D-BD41-27109A802435}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB0A138A-9EFA-4C3D-BD41-27109A802435}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
