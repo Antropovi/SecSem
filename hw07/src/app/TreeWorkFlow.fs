@@ -59,3 +59,28 @@ let rec Fold f value tree =
     let! temp = tree
     return Fold f temp  
   }
+
+
+let insert tree value = 
+      let rec insert tree value = 
+       match tree with           
+       | Nil -> Node (Nil, value, Nil)
+       | Node (l, c, r) -> 
+          if c = value then Node (l, value, r) 
+            elif c > value then Node (insert l value, c, r) 
+              else Node (l, c, insert r value)
+      insert tree value
+      
+       
+let rec Filter f value tree =
+  TreeBilder((fun t arg -> if (f arg) then insert t arg else t), value){
+        let! temp = tree
+        return Filter f tree
+    }
+
+
+let rec Map f value tree =
+  TreeBilder((fun t arg -> insert t (f arg)), value){
+        let! temp = tree
+        return Map f tree
+    }
