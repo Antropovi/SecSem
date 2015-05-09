@@ -16,14 +16,14 @@ let maxInRange (arr : int []) l r =
   res
 
 
-let maxOnes threadNumber arraySize : int =
-  let rnd = new System.Random(0)  
-  let arr = Array.init arraySize (fun i -> rnd.Next(0, arraySize))
+let maxOnes threadNumber (array : int []) =
+//  let rnd = new System.Random(0)  
+//  let arr = Array.init arraySize (fun i -> rnd.Next(0, arraySize))
   let res = ref 0
-  let step = arraySize / threadNumber
+  let step = array.Length / threadNumber
   let threadArray = Array.init threadNumber (fun i ->
       new Thread(ThreadStart(fun _ ->
-          let threadRes = maxInRange arr (i * step) ((i+1) * step - 1)
+          let threadRes = maxInRange array (i * step) ((i+1) * step - 1)
           match threadRes with
           | None -> ()
           | Some(x) -> if x > res.Value then res := x
@@ -33,6 +33,11 @@ let maxOnes threadNumber arraySize : int =
     t.Start()
   for t in threadArray do
     t.Join()
+  if (threadNumber * step - 1) < array.Length - 1 then
+    let temp = maxInRange array (threadNumber * step - 1) (array.Length - 1)
+    match temp with
+     | None -> ()
+     | Some(x) -> if x > res.Value then res := x
   res.Value
 
 let duration s f = 
@@ -48,14 +53,39 @@ let duration s f =
 
 [<EntryPoint>]
 let main argv = 
-//  let temp = integral "1" 0.0 10.0 0.0001 8
-//  printf "%A\t\t" temp
-
-
 (*
   let timer = new System.Diagnostics.Stopwatch()
   timer.Start()
-  let temp = maxOnes 8 100000000
+  let temp = integral "x" 0.0 10.0 0.0001 1                        // 50.001    131
+  printfn "Answ: %A\t Time; %i" temp timer.ElapsedMilliseconds
+  timer.Reset()
+  timer.Start()
+  let temp = integral "x" 0.0 10.0 0.0001 2                        // 50.001  46
+  printfn "Answ: %A\t Time; %i" temp timer.ElapsedMilliseconds
+  timer.Reset()
+  timer.Start()
+  let temp = integral "x" 0.0 10.0 0.0001 4                        // 50.00175 41
+  printfn "Answ: %A\t Time; %i" temp timer.ElapsedMilliseconds
+  timer.Reset()
+  timer.Start()
+  let temp = integral "x" 0.0 10.0 0.0001 8                        // 50.003875 43
+  printfn "Answ: %A\t Time; %i" temp timer.ElapsedMilliseconds
+  timer.Reset()
+  timer.Start()
+  let temp = integral "x" 0.0 10.0 0.0001 9                        // 50.00444444   47
+  printfn "Answ: %A\t Time; %i" temp timer.ElapsedMilliseconds
+  timer.Reset()
+  timer.Start()
+  let temp = integral "1" 0.0 10.0 0.0001 1                        // 10.0001  141
+  printfn "Answ: %A\t Time; %i" temp timer.ElapsedMilliseconds
+  timer.Reset()
+
+  let rnd = new System.Random(0)  
+  let arr = Array.init arraySize (fun i -> rnd.Next(0, arraySize))
+  let timer = new System.Diagnostics.Stopwatch()
+  timer.Start()
+
+  let temp = maxOnes 8 arr 
   printfn "Max: %i\t Time; %i" temp timer.ElapsedMilliseconds
   *)
 

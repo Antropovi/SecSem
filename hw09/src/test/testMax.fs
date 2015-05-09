@@ -12,4 +12,6 @@ open NUnit.Framework
 [<TestCase(100, 1000000, Result = 999999)>]
 [<TestCase(9, 100000000, Result = 99999998)>]
 let `` Test of finding max of int array`` threadNumber arraySize =
-  maxOnes threadNumber arraySize 
+  let rnd = new System.Random(0)  
+  let arr = Array.init arraySize (fun i -> rnd.Next(0, arraySize))
+  maxOnes threadNumber arr 
